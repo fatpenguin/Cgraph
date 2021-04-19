@@ -1,8 +1,8 @@
-/* list_test.cpp */
+/* mdtypes.cpp */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "list_test.hpp"
+#include "mdtypes.hpp"
 
 person_t *create_person(char *name, char *surname)
 {
