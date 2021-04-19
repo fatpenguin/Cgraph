@@ -52,7 +52,7 @@ int length_table(table_t *table)
 
 Object *give_element(table_t *table, int n)
 {
-    if ((n >= 0) && (n > table->n))
+    if ((n >= 0) && (n < table->n))
     {
         return table->element[n];
     }
@@ -125,7 +125,7 @@ Object *dichotomie_iter(table_t *table, Object *lookup_object)
     return result;
 }
 
-void order_table(table_t *table)
+void sort_table(table_t *table)
 {
     Object *object1;
     Object *object2;

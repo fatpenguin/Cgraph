@@ -30,7 +30,7 @@ Object *sentinel_access(table_t *table, Object *lookup_object);
 Object *dichotomie(table_t *table, Object *lookup_object);
 Object *dichotomie_iter(table_t *table, Object *lookup_object);
 
-void order_table(table_t *table);
+void sort_table(table_t *table);
 void list_table(table_t *table);
 
 #endif
