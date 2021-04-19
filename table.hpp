@@ -25,4 +25,12 @@ boolean insert_in_table(table_t *table, Object *new_element);
 int length_table(table_t *table);
 Object *give_element(table_t *table, int n);
 
-#endif TABLE_H
+Object *sequential_access(table_t *table, Object *lookup_object);
+Object *sentinel_access(table_t *table, Object *lookup_object);
+Object *dichotomie(table_t *table, Object *lookup_object);
+Object *dichotomie_iter(table_t *table, Object *lookup_object);
+
+void order_table(table_t *table);
+void list_table(table_t *table);
+
+#endif

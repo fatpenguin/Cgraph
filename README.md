@@ -13,9 +13,17 @@ This module of list management est generic and independant from any application.
 It manages lists of simple elements with head lists.
 
 Tests with
-list_test.hpp + list_test.cpp + list_test_main.hpp
+mdtypes.hpp + mdtypes.cpp + list_test_main.hpp + list_test_noms.dat
 
 ## Table
+
+table.hpp + table.cpp
+
+This module of list management est generic and independant from any application.
+It manages lists of simple elements with head lists.
+
+Tests with
+mdtypes.hpp + mdtypes.cpp + table_test_main.hpp + list_test_noms.dat
 
 ## References
 
