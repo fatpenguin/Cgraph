@@ -7,7 +7,7 @@ typedef int boolean;
 
 typedef void Object;
 
-#define ORDERED 0
+#define NONORDERED 0
 #define ASCENDING 1
 #define DESCENDING 2
 
@@ -25,7 +25,7 @@ typedef struct list
     int nbr_elements; // number of elements in the list
     int type;         // 0: simple, 1: ascending, 2: descending
     int (*compare)(Object *, Object *);
-    char (*toString)(Object *);
+    char *(*toString)(Object *);
 } list_t;
 
 void init_list(list_t *li, int type, char *(*toString), int (*compare)(Object *, Object *));
