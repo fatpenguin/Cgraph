@@ -129,6 +129,19 @@ Object *lookup_object(list_t *li, Object *object_search)
     return found ? object : NULL;
 }
 
+Object *remove_head_list(list_t *li)
+{
+    element_t *extract = li->first;
+    if (!empty_list(li))
+    {
+        li->first = li->first->next;
+        if (li->first == NULL)
+            li->last = NULL;
+        li->nbr_elements--;
+    }
+    return extract != NULL ? extract->reference : NULL;
+}
+
 Object *remove_tail_list(list_t *li)
 {
     Object *extract;
@@ -274,7 +287,7 @@ static boolean in_order(Object *object1, Object *object2, boolean ascending_orde
     return order;
 }
 
-static Object *extract_after(list_t *li, element_t *previous)
+static Object *remove_after(list_t *li, element_t *previous)
 {
     if (previous == NULL)
     {

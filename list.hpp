@@ -13,8 +13,8 @@ typedef void Object;
 
 typedef struct element
 {
-    Object *reference; // reference for the application object
-    element_t *next;   // next element in the list
+    Object *reference;    // reference for the application object
+    struct element *next; // next element in the list
 } element_t;
 
 typedef struct list
@@ -30,7 +30,7 @@ typedef struct list
 
 void init_list(list_t *li, int type, char *(*toString), int (*compare)(Object *, Object *));
 void init_list(list_t *li);
-list_t *create_list(int type, char *(*toString), int (*compare)(Object *, Object *));
+list_t *create_list(int type, char *(*toString)(Object *), int (*compare)(Object *, Object *));
 list_t *create_list(int type);
 list_t *create__list();
 

@@ -12,6 +12,9 @@ list.hpp + list.cpp
 This module of list management est generic and independant from any application.
 It manages lists of simple elements with head lists.
 
+Tests with
+list_test.hpp + list_test.cpp + list_test_main.hpp
+
 ## Table
 
 ## References
