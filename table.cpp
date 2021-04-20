@@ -162,10 +162,11 @@ static Object *dichotomie(table_t *table, Object *lookup_object, int left, int r
     boolean found;
     if (left <= right)
     {
-        half = (left + right) + 1;
+        half = (left + right) / 2;
         c = table->compare(lookup_object, table->element[half]);
         if (c == 0)
         {
+
             result = table->element[half];
             found = true;
         }

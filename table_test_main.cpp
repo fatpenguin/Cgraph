@@ -82,16 +82,17 @@ int main()
     printf("1\n");
     write_person(found);
 
-    // found = (person_t *)sentinel_access(table, lookup);
-    // write_person(found);
+    printf("2\n");
+    found = (person_t *)sentinel_access(table, lookup);
+    write_person(found);
 
     sort_table(table);
     found = (person_t *)dichotomie_iter(table, lookup);
-    printf("2\n");
+    printf("3\n");
     write_person(found);
 
     found = (person_t *)dichotomie(table, lookup);
-    printf("3\n");
+    printf("4\n");
     write_person(found);
 }
 
