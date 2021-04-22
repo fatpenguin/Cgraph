@@ -132,7 +132,7 @@ void sort_table(table_t *table)
     int n = length_table(table);
     for (int i = 0; i < n - 1; i++)
     {
-        for (int j = n - 1; i > i; j++)
+        for (int j = n - 1; j > i; j--)
         {
             object1 = give_element(table, j - 1);
             object2 = give_element(table, j);

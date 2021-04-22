@@ -4,6 +4,8 @@
 #include <string.h>
 #include "mdtypes.hpp"
 
+#include <errno.h>
+
 person_t *create_person(char *name, char *surname)
 {
     person_t *p = new person_t();
@@ -31,8 +33,8 @@ void write_person(person_t *p)
 
 char *toString_person(person_t *p)
 {
-    char *message = (char *)malloc(30);
-    sprintf(message, "%s %s ", p->name, p->surname);
+    char *message = (char *)malloc(31 * sizeof(char));
+    sprintf(message, "%s %s", p->name, p->surname);
     return message;
 }
 

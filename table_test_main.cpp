@@ -41,7 +41,7 @@ void read_word(FILE *fe, char *string)
         fscanf(fe, "%c", &c);
     }
     char *pCh = string;
-    while (((c != ' ') || (c != '\n')) && !feof(fe))
+    while ((c != ' ') && (c != '\n') && !feof(fe))
     {
         *pCh++ = c;
         fscanf(fe, "%c", &c);
@@ -55,7 +55,7 @@ void read_word(FILE *fe, char *string)
 //         printf("person: %s\n", toString_person(p));
 // }
 
-#if 1
+#if 0
 int main()
 {
 #define NBR_MAX 20
@@ -97,116 +97,114 @@ int main()
 }
 
 #else
-
+// TODO: IF MOTIVATED, CREATE BETTER TESTS THAN THE BOOK
+person_t *read_name()
+{
+    person_t *lookup = new person_t();
+    printf("Person name?");
+    scanf("%s", lookup->name);
+    getchar();
+    return lookup;
+}
 int main()
 {
-    list_t *lp = create_list(0, toString_person, compare_person);
+#define NBR_MAX 20
+    table_t *table = create_table(NBR_MAX, toString_person, compare_person);
     boolean done = false;
     person_t *use_person;
-    boolean extract;
+    boolean result;
     ch15 name;
     ch15 surname;
     FILE *fe;
+    int i;
+    int choice;
 
     while (!done)
     {
-        switch (menu())
+        switch (choice = menu())
         {
         case 0:
             done = true;
             break;
         case 1:
-            use_person = create_person();
-            insert_head_list(lp, use_person);
-            break;
-        case 2:
-            use_person = create_person();
-            insert_tail_list(lp, use_person);
-            break;
-        case 3:
-            use_person = (person_t *)remove_head_list(lp);
-            if (use_person != NULL)
-            {
-                printf("Element %s %s removed from head of list\n", use_person->name, use_person->surname);
-            }
-            else
-            {
-                printf("Empty list\n");
-            }
-            break;
-        case 4:
-            use_person = (person_t *)remove_tail_list(lp);
-            if (use_person != NULL)
-            {
-                printf("Element %s %s removed from tail of list\n", use_person->name, use_person->surname);
-            }
-            else
-            {
-                printf("Empty list\n");
-            }
-            break;
-        case 5:
-            printf("Name of person to extract?\n");
-            name;
-            scanf("%s", name);
-            use_person = create_person(name, (char *)"?");
-            use_person = (person_t *)lookup_object(lp, use_person);
-            extract = remove_object(lp, use_person);
-            if (extract)
-            {
-                printf("Element %s %s is removed from the list", use_person->name, use_person->surname);
-            }
-            break;
-        case 6:
-            list_list(lp);
-            break;
-        case 7:
-            printf("Name of the user?\n");
-            name;
-            scanf("%s", name);
-            use_person = create_person(name, (char *)"?");
-            use_person = (person_t *)lookup_object(lp, use_person);
-            if (use_person != NULL)
-            {
-                printf("%s %s found in the list\n", use_person->name, use_person->surname);
-            }
-            else
-            {
-                printf("%s not found in the list\n", name);
-            }
-            break;
-        case 8:
-            printf("1 - Insert in ascending order\n");
-            printf("2 - Insert in descending order\n");
-            printf("Your choice: \n");
-            int cd;
-            scanf("%d", &cd);
-
-            fe = fopen("list_test_noms.dat", "r");
+            fe = fopen("list_persons.dat", "r");
             if (fe == NULL)
             {
                 printf("Cant open file noms.dat");
             }
             else
             {
-                lp = create_list(cd, toString_person, compare_person);
                 while (!feof(fe))
                 {
-                    fscanf(fe, "%15s%15s", name, surname);
-                    use_person = create_person(name, surname);
-                    insert_in_order(lp, use_person);
+                    use_person = new person_t();
+                    read_word(fe, use_person->name);
+                    read_word(fe, use_person->surname);
+                    result = insert_in_table(table, use_person);
+                    if (!result)
+                    {
+                        printf("Table overflown\n");
+                    }
                 }
                 fclose(fe);
-                list_list(lp);
+                list_table(table);
             }
             break;
-        case 9:
-            destroy_list(lp);
+        case 2:
+            printf("Sequential research\n");
+            use_person = read_name();
+            use_person = (person_t *)sequential_access(table, use_person);
+            break;
+        case 3:
+            printf("Sentinel research\n");
+            use_person = read_name();
+            use_person = (person_t *)sentinel_access(table, use_person);
+            break;
+        case 4:
+            printf("Dichotomie research\n");
+            use_person = read_name();
+            use_person = (person_t *)dichotomie(table, use_person);
+            break;
+        case 5:
+            printf("Dichotomie iterative research\n");
+            use_person = read_name();
+            use_person = (person_t *)dichotomie_iter(table, use_person);
+            break;
+        case 6:
+            printf("Number of searched element?");
+            scanf("%d", &i);
+            getchar();
+            use_person = (person_t *)give_element(table, i);
+            if (use_person == NULL)
+            {
+                printf("Unknown element: %d\n", i);
+            }
+            else
+            {
+                write_person(use_person);
+            }
+            break;
+        case 7:
+            list_table(table);
+            break;
+        case 8:
+            sort_table(table);
             break;
         default:
             break;
         }
+        if ((choice > 1) && (choice < 6))
+        {
+            if (use_person == NULL)
+            {
+                printf("Unknown person\n");
+            }
+            else
+            {
+                write_person(use_person);
+            }
+        }
     }
+    destroy_table(table);
 }
 
 #endif
